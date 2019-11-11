@@ -2,5 +2,6 @@ require "dropkiq/version"
 
 module Dropkiq
   class Error < StandardError; end
-  # Your code goes here...
+
+  require 'dropkiq/railtie' if defined?(Rails)
 end
