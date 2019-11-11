@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "dropkiq/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "Dropkiq"
+  spec.name          = "dropkiq"
   spec.version       = Dropkiq::VERSION
   spec.authors       = ["Adam Darrah"]
   spec.email         = ["adam@dropkiq.com"]
