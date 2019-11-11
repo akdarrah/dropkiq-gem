@@ -21,6 +21,10 @@ class DropkiqDropAnalyzerTest < Minitest::Test
     def created_at
       @person["created_at"]
     end
+
+    def random_number
+      rand(1..10)
+    end
   end
 
   class Person < ActiveRecord::Base
@@ -53,6 +57,8 @@ class DropkiqDropAnalyzerTest < Minitest::Test
     assert_equal Person.table_name, @analyzer.table_name
   end
 
+  # Column tests
+
   def test_correctly_identifies_string_column
     @column = @analyzer.drop_methods.detect{|data| data[:name] == :name}
     assert_equal :string, @column[:type]
@@ -76,5 +82,12 @@ class DropkiqDropAnalyzerTest < Minitest::Test
   def test_columns_not_implemented_in_drop_class_are_hidden
     @column = @analyzer.drop_methods.detect{|data| data[:name] == :updated_at}
     assert_nil @column
+  end
+
+  # No Column tests
+
+  def test_finds_type_for_method_without_a_column
+    @column = @analyzer.drop_methods.detect{|data| data[:name] == :random_number}
+    assert_equal :datetime, @column[:type]
   end
 end

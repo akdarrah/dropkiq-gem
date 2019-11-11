@@ -33,13 +33,16 @@ module Dropkiq
     def find_drop_methods
       default_methods  = (Liquid::Drop.instance_methods + Object.instance_methods)
       instance_methods = (liquid_drop_class.instance_methods - default_methods)
+      columns_hash     = active_record_class.columns_hash
 
       instance_methods.map do |method|
+        next if !columns_hash.key?(method.to_s)
+
         {
-          type: active_record_class.columns_hash[method.to_s].type,
+          type: columns_hash[method.to_s].type,
           name: method
         }
-      end
+      end.compact
     end
   end
 end
