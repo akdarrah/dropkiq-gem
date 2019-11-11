@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "dropkiq/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "dropkiq"
+  spec.name          = "Dropkiq"
   spec.version       = Dropkiq::VERSION
   spec.authors       = ["Adam Darrah"]
-  spec.email         = ["piremies@gmail.com"]
+  spec.email         = ["adam@dropkiq.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Integrate your Ruby on Rails application with Dropkiq for easy Liquid editing}
+  spec.description   = %q{Dropkiq simplifies the creation of Liquid (from Shopify) expressions. The Dropkiq Ruby Gem automates the maintenance of fixtures within Dropkiq to allow for testing Liquid expressions.}
+  spec.homepage      = "https://github.com/akdarrah/dropkiq-gem"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
