@@ -1,5 +1,5 @@
 module Dropkiq
-  class DropClass
+  class DropAnalyzer
     attr_accessor :liquid_drop_klass
 
     def initialize(liquid_drop_klass)
