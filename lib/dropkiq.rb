@@ -1,4 +1,5 @@
 require "dropkiq/version"
+require "dropkiq/constants"
 
 module Dropkiq
   class Error < StandardError; end
