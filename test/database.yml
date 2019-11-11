@@ -1,0 +1,16 @@
+sqlite:
+  adapter: sqlite3
+  database: "file:memdb1?mode=memory&cache=shared"
+
+mysql:
+  adapter: mysql2
+  username: root
+  password:
+  database: dropkiq
+
+postgresql:
+  adapter: postgresql
+  username: postgres
+  password:
+  database: dropkiq
+  min_messages: ERROR

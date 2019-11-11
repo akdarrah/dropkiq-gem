@@ -1,5 +1,6 @@
 require "pry"
 require "liquid"
+require 'active_record'
 
 require "dropkiq/version"
 require "dropkiq/constants"
