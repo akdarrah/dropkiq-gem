@@ -30,10 +30,10 @@ class DropkiqDropAnalyzerTest < Minitest::Test
     teardown_db
   end
 
-  def test_failure
-    analyzer = Dropkiq::DropAnalyzer.new(PersonDrop)
+  def test_finds_correct_active_record_model
+    @analyzer = Dropkiq::DropAnalyzer.new(PersonDrop)
+    @analyzer.analyze
 
-    binding.pry
-    assert false
+    assert_equal Person, @analyzer.active_record_class
   end
 end
