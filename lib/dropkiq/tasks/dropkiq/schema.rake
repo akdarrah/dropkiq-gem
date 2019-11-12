@@ -17,8 +17,9 @@ namespace :dropkiq do
       schema.merge!(analyzer.to_param)
     end.sort_by { |key| key }.to_h
 
+    final_schema = fresh_schema.deep_merge(existing_schema)
     open("#{Rails.root}/db/dropkiq_schema.yaml", 'w') { |f|
-      f.puts fresh_schema.to_yaml
+      f.puts final_schema.to_yaml
     }
   end
 end
