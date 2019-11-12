@@ -3,7 +3,6 @@ namespace :dropkiq do
   task :schema do
     require "#{Rails.root}/config/environment.rb"
     binding.pry
-    Dir.glob("#{Rails.root}#{Dropkiq::DEFAULT_DROP_PATH}/**/*.rb").each { |f| load f }
 
     existing_schema_yaml = File.read("#{Rails.root}/db/dropkiq_schema.yaml")
     existing_schema = (existing_schema_yaml.present? ? YAML.load(existing_schema_yaml) : {})
