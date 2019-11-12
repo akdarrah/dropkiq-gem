@@ -20,6 +20,12 @@ module Dropkiq
       self.drop_methods = find_drop_methods
     end
 
+    def to_param
+      {
+        name: table_name
+      }
+    end
+
     private
 
     def find_active_record_class

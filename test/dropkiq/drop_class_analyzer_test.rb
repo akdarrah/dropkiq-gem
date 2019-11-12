@@ -15,6 +15,14 @@ class DropkiqDropClassAnalyzerTest < Minitest::Test
     teardown_test_scaffolding
   end
 
+  # Dropkiq::DropClassAnalyzer#to_param
+
+  def test_uses_table_name_as_name
+    assert_equal Person.table_name, @analyzer.to_param[:name]
+  end
+
+  # Dropkiq::DropClassAnalyzer#analyze
+
   def test_finds_correct_active_record_model
     assert_equal Person, @analyzer.active_record_class
   end

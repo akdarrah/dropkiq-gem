@@ -18,6 +18,13 @@ module Dropkiq
       end
     end
 
+    def to_param
+      {
+        type: dropkiq_type,
+        foreign_table_name: foreign_table_name
+      }
+    end
+
     private
 
     def reflect_on_association_value
