@@ -5,22 +5,9 @@ namespace :dropkiq do
     klasses = Liquid::Drop.descendants - Dropkiq::DEFAULT_LIQUID_DROP_CLASSES
 
     schema = klasses.map do |klass|
-      default_methods = (Liquid::Drop.instance_methods + Object.instance_methods)
-      methods = (klass.instance_methods - default_methods)
-
-      active_record_klass = begin
-        klass.name.gsub('Drop', '').constantize
-      rescue NameError
-      end
-
-      if active_record_klass.present?
-        Event.columns_hash["name"].type
-      end
-
-      {
-        name: klass,
-        columns: methods
-      }
+      analyzer = Dropkiq::DropClassAnalyzer.new(klass)
+      analyzer.analyze
+      analyzer.to_param
     end
 
     puts schema
