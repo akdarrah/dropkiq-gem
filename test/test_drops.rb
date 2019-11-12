@@ -1,3 +1,35 @@
+class GroupDrop < Liquid::Drop
+  def initialize(group)
+    @group = group
+  end
+
+  def name
+    @group["name"]
+  end
+
+  def owner
+    PersonDrop.new(@group.owner)
+  end
+
+  def people
+    @group.people.map{|p| PersonDrop.new(p)}
+  end
+end
+
+class TagDrop < Liquid::Drop
+  def initialize(tag)
+    @tag = tag
+  end
+
+  def name
+    @tag["name"]
+  end
+
+  def groups
+    @tag.groups.map{|g| GroupDrop.new(g)}
+  end
+end
+
 class PersonDrop < Liquid::Drop
   def initialize(person)
     @person = person

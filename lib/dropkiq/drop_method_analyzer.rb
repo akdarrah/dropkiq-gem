@@ -29,9 +29,23 @@ module Dropkiq
     end
 
     def relationship_to_dropkiq_type_classifier
-      case reflect_on_association_value
+      reflection = reflect_on_association_value
+
+      case reflection
       when ActiveRecord::Reflection::BelongsToReflection
         Dropkiq::HAS_ONE_TYPE
+      when ActiveRecord::Reflection::HasOneReflection
+        Dropkiq::HAS_ONE_TYPE
+      when ActiveRecord::Reflection::HasManyReflection
+        Dropkiq::HAS_MANY_TYPE
+      when ActiveRecord::Reflection::ThroughReflection
+        if reflection.send(:delegate_reflection).is_a?(ActiveRecord::Reflection::HasOneReflection)
+          Dropkiq::HAS_ONE_TYPE
+        else
+          Dropkiq::HAS_MANY_TYPE
+        end
+      when ActiveRecord::Reflection::HasAndBelongsToManyReflection
+        Dropkiq::HAS_MANY_TYPE
       end
     end
 

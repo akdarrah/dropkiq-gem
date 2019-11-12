@@ -103,4 +103,48 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
 
     assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
   end
+
+  def test_correctly_identifies_has_one_relationship
+    @class_analyzer = Dropkiq::DropClassAnalyzer.new(GroupDrop)
+    @class_analyzer.analyze
+
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :owner)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
+  end
+
+  def test_correctly_identifies_has_many_relationship
+    @class_analyzer = Dropkiq::DropClassAnalyzer.new(GroupDrop)
+    @class_analyzer.analyze
+
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :people)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::HAS_MANY_TYPE, @analyzer.dropkiq_type
+  end
+
+  def test_correctly_identifies_has_many_through_relationship
+    @class_analyzer = Dropkiq::DropClassAnalyzer.new(TagDrop)
+    @class_analyzer.analyze
+
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :groups)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::HAS_MANY_TYPE, @analyzer.dropkiq_type
+  end
+
+  def test_correctly_identifies_has_one_through_relationship
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :group_owner)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
+  end
+
+  def test_correctly_identifies_has_and_belongs_to_many_relationship
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :tags)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::HAS_MANY_TYPE, @analyzer.dropkiq_type
+  end
 end
