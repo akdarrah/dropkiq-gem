@@ -20,9 +20,10 @@ module Dropkiq
 
     def to_param
       {
-        name: drop_method,
-        type: dropkiq_type,
-        foreign_table_name: foreign_table_name
+        "#{drop_method}" => {
+          type: dropkiq_type,
+          foreign_table_name: foreign_table_name
+        }
       }
     end
 

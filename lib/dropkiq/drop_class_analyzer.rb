@@ -41,11 +41,11 @@ module Dropkiq
       default_methods  = (Liquid::Drop.instance_methods + Object.instance_methods)
       instance_methods = (liquid_drop_class.instance_methods - default_methods)
 
-      instance_methods.map do |method|
+      instance_methods.inject({}) do |hash, method|
         analyzer = Dropkiq::DropMethodAnalyzer.new(self, method)
         analyzer.analyze
-        analyzer.to_param
-      end.sort_by{|data| data[:name]}
+        hash.merge!(analyzer.to_param)
+      end.sort_by { |key| key }.to_h
     end
   end
 end
