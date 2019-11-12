@@ -3,7 +3,10 @@ namespace :dropkiq do
   task :schema do
     require "#{Rails.root}/config/environment.rb"
 
-    existing_schema_yaml = File.read("#{Rails.root}/db/dropkiq_schema.yaml")
+    existing_schema_yaml = begin
+      File.read("#{Rails.root}/db/dropkiq_schema.yaml")
+    rescue Errno::ENOENT
+    end
     existing_schema = (existing_schema_yaml.present? ? YAML.load(existing_schema_yaml) : {})
 
     klasses = Liquid::Drop.descendants - Dropkiq::DEFAULT_LIQUID_DROP_CLASSES
