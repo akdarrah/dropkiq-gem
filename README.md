@@ -1,8 +1,16 @@
+![Dropkiq_logo-dk](https://user-images.githubusercontent.com/69064/68704782-dd868e80-055a-11ea-952c-78bd9e9344d6.png)
+
 # Dropkiq
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dropkiq`. To experiment with that code, run `bin/console` for an interactive prompt.
+**[Dropkiq](https://www.dropkiq.com/) simplifies the creation of Liquid expressions.**
 
-TODO: Delete this and the text above, and describe your gem
+Quickly build your dynamic content with the simplest Liquid template editor. Dropkiq offers the following benefits:
+
+* **Immediate Feedback** No more guesswork. Know exactly how your expressions will evaluate in real time.
+* **No More Typos** To err is human. Identify mistakes as they happen and take corrective measures.
+* **Visibility of Options** Data at your fingertips. See what data is available without asking your development team.
+
+Check it out at [https://www.dropkiq.com](https://www.dropkiq.com/)!
 
 ## Installation
 
