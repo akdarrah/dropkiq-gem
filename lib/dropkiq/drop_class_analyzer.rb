@@ -14,11 +14,7 @@ module Dropkiq
 
     def analyze
       self.active_record_class = find_active_record_class
-      begin
-        self.table_name = active_record_class.table_name
-      rescue Exception => e
-        raise liquid_drop_class.inspect
-      end
+      self.table_name = active_record_class.table_name
       self.drop_method_params = find_drop_method_params
     end
 
@@ -32,6 +28,7 @@ module Dropkiq
     private
 
     def find_active_record_class
+      binding.pry
       namespaces = liquid_drop_class.name.split("::")
       class_name = namespaces.pop
       non_drop   = class_name.gsub('Drop', '')
