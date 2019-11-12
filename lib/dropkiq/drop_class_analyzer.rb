@@ -5,10 +5,8 @@
 
 module Dropkiq
   class DropClassAnalyzer
-    DEFAULT_METHODS = (Liquid::Drop.instance_methods + Object.instance_methods)
-
     attr_accessor :liquid_drop_class, :table_name,
-      :active_record_class, :drop_methods
+      :active_record_class, :drop_method_params
 
     def initialize(liquid_drop_class)
       self.liquid_drop_class = liquid_drop_class
@@ -17,12 +15,13 @@ module Dropkiq
     def analyze
       self.active_record_class = find_active_record_class
       self.table_name = active_record_class.table_name
-      self.drop_methods = find_drop_methods
+      self.drop_method_params = find_drop_method_params
     end
 
     def to_param
       {
-        name: table_name
+        name: table_name,
+        columns: drop_method_params
       }
     end
 
@@ -37,11 +36,14 @@ module Dropkiq
     rescue NameError
     end
 
-    def find_drop_methods
-      instance_methods = (liquid_drop_class.instance_methods - DEFAULT_METHODS)
+    def find_drop_method_params
+      default_methods  = (Liquid::Drop.instance_methods + Object.instance_methods)
+      instance_methods = (liquid_drop_class.instance_methods - default_methods)
 
       instance_methods.map do |method|
-        Dropkiq::DropMethodAnalyzer.new(self, method).analyze
+        analyzer = Dropkiq::DropMethodAnalyzer.new(self, method)
+        analyzer.analyze
+        analyzer.to_param
       end
     end
   end
