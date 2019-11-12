@@ -13,10 +13,9 @@ namespace :dropkiq do
     schema = klasses.inject({}) do |schema, klass|
       analyzer = Dropkiq::DropClassAnalyzer.new(klass)
       analyzer.analyze
+      binding.pry
       schema.merge!(analyzer.to_param)
     end
-
-    binding.pry
 
     open("#{Rails.root}/db/dropkiq_schema.yaml", 'w') { |f|
       f.puts schema.to_yaml
