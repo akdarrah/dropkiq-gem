@@ -11,12 +11,29 @@ module Dropkiq
     end
 
     def analyze
-      self.dropkiq_type = if is_column?
+      self.dropkiq_type = if is_relationship?
+        relationship_to_dropkiq_type_classifier
+      elsif is_column?
         column_to_dropkiq_type_classifier
       end
     end
 
     private
+
+    def reflect_on_association_value
+      active_record_class.reflect_on_association(drop_method)
+    end
+
+    def is_relationship?
+      reflect_on_association_value.present?
+    end
+
+    def relationship_to_dropkiq_type_classifier
+      case reflect_on_association_value
+      when ActiveRecord::Reflection::BelongsToReflection
+        Dropkiq::HAS_ONE_TYPE
+      end
+    end
 
     def columns_hash_value
       active_record_class.columns_hash[drop_method.to_s]

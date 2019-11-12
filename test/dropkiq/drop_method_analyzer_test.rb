@@ -94,4 +94,13 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
 
     assert_equal Dropkiq::NUMERIC_TYPE, @analyzer.dropkiq_type
   end
+
+  # Relationship Tests
+
+  def test_correctly_identifies_belongs_to_relationship
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :group)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
+  end
 end
