@@ -4,11 +4,11 @@
 
 **[Dropkiq](https://www.dropkiq.com/) simplifies the creation of Liquid expressions.**
 
-Quickly build your dynamic content with the simplest Liquid template editor. Dropkiq offers the following benefits:
+Quickly build your dynamic content with the simplest Liquid template editor.
 
-* **Immediate Feedback** No more guesswork. Know exactly how your expressions will evaluate in real time.
-* **No More Typos** To err is human. Identify mistakes as they happen and take corrective measures.
-* **Visibility of Options** Data at your fingertips. See what data is available without asking your development team.
+* **Immediate Feedback:** No more guesswork. Know exactly how your expressions will evaluate in real time.
+* **No More Typos:** To err is human. Identify mistakes as they happen and take corrective measures.
+* **Visibility of Options:** Data at your fingertips. See what data is available without asking your development team.
 
 Check it out at [https://www.dropkiq.com](https://www.dropkiq.com/)!
 
