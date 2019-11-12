@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DropkiqDropAnalyzerTest < Minitest::Test
+class DropkiqDropMethodAnalyzerTest < Minitest::Test
   include TestDatabase
   include TestRecords
 
