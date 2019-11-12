@@ -17,8 +17,6 @@ namespace :dropkiq do
       schema.merge!(analyzer.to_param)
     end
 
-    binding.pry
-
     open("#{Rails.root}/db/dropkiq_schema.yaml", 'w') { |f|
       f.puts schema.to_yaml
     }
