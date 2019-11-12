@@ -15,7 +15,7 @@ namespace :dropkiq do
       analyzer = Dropkiq::DropClassAnalyzer.new(klass)
       analyzer.analyze
       schema.merge!(analyzer.to_param)
-    end
+    end.sort
 
     open("#{Rails.root}/db/dropkiq_schema.yaml", 'w') { |f|
       f.puts schema.to_yaml
