@@ -18,6 +18,8 @@ module TestDatabase
       t.column :birthdate, :date
       t.column :net_worth, :decimal, precision: 5, scale: 2
       t.column :height_in_miles, :float, precision: 5, scale: 2
+      t.column :favorite_time_of_day, :time
+      t.column :woke_up_at, :timestamp
     end
 
     ActiveRecord::Base.connection.create_table :people_tags do |t|

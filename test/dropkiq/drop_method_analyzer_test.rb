@@ -65,4 +65,26 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
 
     assert_equal Dropkiq::NUMERIC_TYPE, @analyzer.dropkiq_type
   end
+
+  def test_correctly_identifies_text_column
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :notes)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::TEXT_TYPE, @analyzer.dropkiq_type
+  end
+
+  def test_correctly_identifies_time_column
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :favorite_time_of_day)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::DATE_TIME_TYPE, @analyzer.dropkiq_type
+  end
+
+  # Same as datetime
+  def test_correctly_identifies_timestamp_column
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :woke_up_at)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::DATE_TIME_TYPE, @analyzer.dropkiq_type
+  end
 end

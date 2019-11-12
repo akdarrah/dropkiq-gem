@@ -7,7 +7,9 @@ module TestRecords
       age: 34,
       birthdate: (Date.today - 20.years),
       net_worth: 155.55,
-      height_in_miles: 0.012
+      height_in_miles: 0.012,
+      favorite_time_of_day: Time.now,
+      woke_up_at: Time.now.beginning_of_day
     })
 
     group = Group.create!(name: "Chiquita Banana", owner: person)

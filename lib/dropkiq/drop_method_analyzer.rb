@@ -42,6 +42,10 @@ module Dropkiq
         Dropkiq::NUMERIC_TYPE
       when :float
         Dropkiq::NUMERIC_TYPE
+      when :text
+        Dropkiq::TEXT_TYPE
+      when :time
+        Dropkiq::DATE_TIME_TYPE
       end
     end
   end
