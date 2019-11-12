@@ -45,7 +45,7 @@ module Dropkiq
         analyzer = Dropkiq::DropMethodAnalyzer.new(self, method)
         analyzer.analyze
         analyzer.to_param
-      end
+      end.sort_by{|data| data[:name]}
     end
   end
 end
