@@ -1,8 +1,3 @@
-# Assumes that Drop class is named ModelNameDrop
-# Assumes that Drop class has one argument that takes an instance
-# Assumes that Drop class method will return same type if has the same name
-# Assumes that ActiveRecord class has a normal primary key
-
 module Dropkiq
   class DropClassAnalyzer
     attr_accessor :liquid_drop_class, :table_name,
