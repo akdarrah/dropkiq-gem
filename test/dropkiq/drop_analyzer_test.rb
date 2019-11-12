@@ -28,6 +28,27 @@ class DropkiqDropAnalyzerTest < Minitest::Test
   end
 
   class Person < ActiveRecord::Base
+    has_many :taggings, as: :taggable
+    has_many :tags, through: :taggings
+
+    belongs_to :group
+    has_one :group_owner,
+      through: :group,
+      source: :owner
+  end
+
+  class Tagging < ActiveRecord::Base
+    belongs_to :taggable, polymorphic: true
+    belongs_to :tag
+  end
+
+  class Tag < ActiveRecord::Base
+    has_many :taggings
+  end
+
+  class Group < ActiveRecord::Base
+    has_many :people
+    has_one :owner, class_name: "Person"
   end
 
   def setup
@@ -39,6 +60,9 @@ class DropkiqDropAnalyzerTest < Minitest::Test
       notes: "A banana is an edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called \"plantains\", distinguishing them from dessert bananas. Wikipedia",
       age: 34
     })
+    @banana_tag = Tag.create!({name: "Banana"})
+    @orange_tag = Tag.create!({name: "Orange"})
+
     @person_drop = PersonDrop.new(@person)
 
     @analyzer = Dropkiq::DropAnalyzer.new(PersonDrop)

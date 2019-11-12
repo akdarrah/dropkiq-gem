@@ -19,6 +19,22 @@ def setup_db
     t.column :updated_at, :datetime
     t.column :notes, :text
     t.column :age, :integer
+    t.column :group_id, :integer
+  end
+
+  ActiveRecord::Base.connection.create_table :taggings do |t|
+    t.column :tag_id, :integer
+    t.column :taggable_id, :integer
+    t.column :taggable_type, :string
+  end
+
+  ActiveRecord::Base.connection.create_table :tags do |t|
+    t.column :name, :string
+  end
+
+  ActiveRecord::Base.connection.create_table :groups do |t|
+    t.column :name, :string
+    t.column :owner_id, :integer
   end
 end
 
