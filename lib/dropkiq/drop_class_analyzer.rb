@@ -28,7 +28,6 @@ module Dropkiq
     private
 
     def find_active_record_class
-      binding.pry
       namespaces = liquid_drop_class.name.split("::")
       class_name = namespaces.pop
       non_drop   = class_name.gsub('Drop', '')
