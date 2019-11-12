@@ -21,7 +21,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :name)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::STRING_TYPE, foreign_table_name: nil}
+    expected = {name: :name, type: Dropkiq::STRING_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -29,7 +29,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :age)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
+    expected = {name: :age, type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -37,7 +37,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :active)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::BOOLEAN_TYPE, foreign_table_name: nil}
+    expected = {name: :active, type: Dropkiq::BOOLEAN_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -45,7 +45,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :created_at)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
+    expected = {name: :created_at, type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -53,7 +53,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :birthdate)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
+    expected = {name: :birthdate, type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -61,7 +61,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :net_worth)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
+    expected = {name: :net_worth, type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -69,7 +69,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :height_in_miles)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
+    expected = {name: :height_in_miles, type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -77,7 +77,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :notes)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::TEXT_TYPE, foreign_table_name: nil}
+    expected = {name: :notes, type: Dropkiq::TEXT_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -85,7 +85,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :favorite_time_of_day)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
+    expected = {name: :favorite_time_of_day, type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -94,7 +94,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :woke_up_at)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
+    expected = {name: :woke_up_at, type: Dropkiq::DATE_TIME_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -102,7 +102,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :age_in_binary)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
+    expected = {name: :age_in_binary, type: Dropkiq::NUMERIC_TYPE, foreign_table_name: nil}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -112,7 +112,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :group)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::HAS_ONE_TYPE, foreign_table_name: "groups"}
+    expected = {name: :group, type: Dropkiq::HAS_ONE_TYPE, foreign_table_name: "groups"}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -123,7 +123,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :owner)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::HAS_ONE_TYPE, foreign_table_name: "people"}
+    expected = {name: :owner, type: Dropkiq::HAS_ONE_TYPE, foreign_table_name: "people"}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -134,7 +134,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :people)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::HAS_MANY_TYPE, foreign_table_name: "people"}
+    expected = {name: :people, type: Dropkiq::HAS_MANY_TYPE, foreign_table_name: "people"}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -145,7 +145,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :groups)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::HAS_MANY_TYPE, foreign_table_name: "groups"}
+    expected = {name: :groups, type: Dropkiq::HAS_MANY_TYPE, foreign_table_name: "groups"}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -153,7 +153,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :group_owner)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::HAS_ONE_TYPE, foreign_table_name: "people"}
+    expected = {name: :group_owner, type: Dropkiq::HAS_ONE_TYPE, foreign_table_name: "people"}
     assert_equal expected, @analyzer.to_param
   end
 
@@ -161,7 +161,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :tags)
     @analyzer.analyze
 
-    expected = {type: Dropkiq::HAS_MANY_TYPE, foreign_table_name: "tags"}
+    expected = {name: :tags, type: Dropkiq::HAS_MANY_TYPE, foreign_table_name: "tags"}
     assert_equal expected, @analyzer.to_param
   end
 end
