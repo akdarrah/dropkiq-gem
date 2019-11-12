@@ -5,7 +5,9 @@ module TestRecords
       active: true,
       notes: "A banana is an edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called \"plantains\", distinguishing them from dessert bananas. Wikipedia",
       age: 34,
-      birthdate: (Date.today - 20.years)
+      birthdate: (Date.today - 20.years),
+      net_worth: 155.55,
+      height_in_miles: 0.012
     })
 
     group = Group.create!(name: "Chiquita Banana", owner: person)

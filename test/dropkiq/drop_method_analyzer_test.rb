@@ -51,4 +51,18 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
 
     assert_equal Dropkiq::DATE_TIME_TYPE, @analyzer.dropkiq_type
   end
+
+  def test_correctly_identifies_decimal_column
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :net_worth)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::NUMERIC_TYPE, @analyzer.dropkiq_type
+  end
+
+  def test_correctly_identifies_float_column
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :height_in_miles)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::NUMERIC_TYPE, @analyzer.dropkiq_type
+  end
 end

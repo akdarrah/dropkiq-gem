@@ -38,6 +38,10 @@ module Dropkiq
         Dropkiq::DATE_TIME_TYPE
       when :date
         Dropkiq::DATE_TIME_TYPE
+      when :decimal
+        Dropkiq::NUMERIC_TYPE
+      when :float
+        Dropkiq::NUMERIC_TYPE
       end
     end
   end

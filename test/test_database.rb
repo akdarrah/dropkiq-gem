@@ -16,6 +16,8 @@ module TestDatabase
       t.column :age, :integer
       t.column :group_id, :integer
       t.column :birthdate, :date
+      t.column :net_worth, :decimal, precision: 5, scale: 2
+      t.column :height_in_miles, :float, precision: 5, scale: 2
     end
 
     ActiveRecord::Base.connection.create_table :people_tags do |t|
