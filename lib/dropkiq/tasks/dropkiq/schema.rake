@@ -11,12 +11,13 @@ namespace :dropkiq do
     existing_schema = (existing_schema_yaml.present? ? YAML.load(existing_schema_yaml) : {})
 
     klasses = Liquid::Drop.descendants - Dropkiq::DEFAULT_LIQUID_DROP_CLASSES
-    binding.pry
     schema = klasses.inject({}) do |schema, klass|
       analyzer = Dropkiq::DropClassAnalyzer.new(klass)
       analyzer.analyze
       schema.merge!(analyzer.to_param)
     end
+
+    binding.pry
 
     open("#{Rails.root}/db/dropkiq_schema.yaml", 'w') { |f|
       f.puts schema.to_yaml
