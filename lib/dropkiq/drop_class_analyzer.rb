@@ -14,7 +14,11 @@ module Dropkiq
 
     def analyze
       self.active_record_class = find_active_record_class
-      self.table_name = active_record_class.table_name
+      begin
+        self.table_name = active_record_class.table_name
+      rescue Exception => e
+        raise liquid_drop_class.inspect
+      end
       self.drop_method_params = find_drop_method_params
     end
 
