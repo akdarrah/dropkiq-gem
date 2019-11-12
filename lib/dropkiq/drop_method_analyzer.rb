@@ -36,6 +36,8 @@ module Dropkiq
         Dropkiq::BOOLEAN_TYPE
       when :datetime
         Dropkiq::DATE_TIME_TYPE
+      when :date
+        Dropkiq::DATE_TIME_TYPE
       end
     end
   end

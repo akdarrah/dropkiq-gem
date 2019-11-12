@@ -44,4 +44,11 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
 
     assert_equal Dropkiq::DATE_TIME_TYPE, @analyzer.dropkiq_type
   end
+
+  def test_correctly_identifies_date_column
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :birthdate)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::DATE_TIME_TYPE, @analyzer.dropkiq_type
+  end
 end

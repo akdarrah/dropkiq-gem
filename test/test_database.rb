@@ -15,6 +15,7 @@ module TestDatabase
       t.column :notes, :text
       t.column :age, :integer
       t.column :group_id, :integer
+      t.column :birthdate, :date
     end
 
     ActiveRecord::Base.connection.create_table :people_tags do |t|
