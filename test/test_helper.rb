@@ -22,10 +22,9 @@ def setup_db
     t.column :group_id, :integer
   end
 
-  ActiveRecord::Base.connection.create_table :taggings do |t|
+  ActiveRecord::Base.connection.create_table :people_tags do |t|
     t.column :tag_id, :integer
-    t.column :taggable_id, :integer
-    t.column :taggable_type, :string
+    t.column :person_id, :integer
   end
 
   ActiveRecord::Base.connection.create_table :tags do |t|

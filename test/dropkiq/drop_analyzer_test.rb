@@ -28,8 +28,7 @@ class DropkiqDropAnalyzerTest < Minitest::Test
   end
 
   class Person < ActiveRecord::Base
-    has_many :taggings, as: :taggable
-    has_many :tags, through: :taggings
+    has_and_belongs_to_many :tags
 
     belongs_to :group
     has_one :group_owner,
@@ -37,13 +36,9 @@ class DropkiqDropAnalyzerTest < Minitest::Test
       source: :owner
   end
 
-  class Tagging < ActiveRecord::Base
-    belongs_to :taggable, polymorphic: true
-    belongs_to :tag
-  end
-
   class Tag < ActiveRecord::Base
-    has_many :taggings
+    has_and_belongs_to_many :people
+    has_many :groups, through: :people
   end
 
   class Group < ActiveRecord::Base
