@@ -43,5 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3", "~> 1.3.13"
 
   spec.add_dependency "activerecord", ">= 4.2"
-  spec.add_dependency "liquid", "~> 4.0.3"
+  spec.add_dependency "liquid", "~> 4.0"
 end

@@ -3,7 +3,7 @@ PATH
   specs:
     dropkiq (0.1.0)
       activerecord (>= 4.2)
-      liquid (~> 4.0.3)
+      liquid (~> 4.0)
 
 GEM
   remote: https://rubygems.org/
