@@ -3,11 +3,9 @@
 # Assumes that Drop class method will return same type if has the same name
 
 module Dropkiq
-  class DropAnalyzer
-    attr_accessor :liquid_drop_class,
-      :active_record_class,
-      :drop_methods,
-      :table_name
+  class DropClassAnalyzer
+    attr_accessor :liquid_drop_class, :table_name,
+      :active_record_class, :drop_methods
 
     def initialize(liquid_drop_class)
       self.liquid_drop_class = liquid_drop_class
@@ -36,13 +34,8 @@ module Dropkiq
       columns_hash     = active_record_class.columns_hash
 
       instance_methods.map do |method|
-        next if !columns_hash.key?(method.to_s)
-
-        {
-          type: columns_hash[method.to_s].type,
-          name: method
-        }
-      end.compact
+        Dropkiq::DropMethodAnalyzer.new(self, method).analyze
+      end
     end
   end
 end
