@@ -18,7 +18,7 @@ class DropkiqDropClassAnalyzerTest < Minitest::Test
   # Dropkiq::DropClassAnalyzer#to_param
 
   def test_uses_table_name_as_name
-    assert_equal Person.table_name, @analyzer.to_param[:name]
+    assert_equal Person.table_name, @analyzer.to_param.keys.first
   end
 
   # Dropkiq::DropClassAnalyzer#analyze
