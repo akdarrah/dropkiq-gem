@@ -9,7 +9,8 @@ module TestRecords
       net_worth: 155.55,
       height_in_miles: 0.012,
       favorite_time_of_day: Time.now,
-      woke_up_at: Time.now.beginning_of_day
+      woke_up_at: Time.now.beginning_of_day,
+      age_in_binary: 1101
     })
 
     group = Group.create!(name: "Chiquita Banana", owner: person)

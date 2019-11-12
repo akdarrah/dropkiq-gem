@@ -46,6 +46,8 @@ module Dropkiq
         Dropkiq::TEXT_TYPE
       when :time
         Dropkiq::DATE_TIME_TYPE
+      when :binary
+        Dropkiq::NUMERIC_TYPE
       end
     end
   end

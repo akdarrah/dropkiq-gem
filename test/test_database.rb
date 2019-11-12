@@ -20,6 +20,7 @@ module TestDatabase
       t.column :height_in_miles, :float, precision: 5, scale: 2
       t.column :favorite_time_of_day, :time
       t.column :woke_up_at, :timestamp
+      t.column :age_in_binary, :binary
     end
 
     ActiveRecord::Base.connection.create_table :people_tags do |t|

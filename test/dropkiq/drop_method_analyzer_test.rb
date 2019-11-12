@@ -87,4 +87,11 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
 
     assert_equal Dropkiq::DATE_TIME_TYPE, @analyzer.dropkiq_type
   end
+
+  def test_correctly_identifies_binary_column
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :age_in_binary)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::NUMERIC_TYPE, @analyzer.dropkiq_type
+  end
 end
