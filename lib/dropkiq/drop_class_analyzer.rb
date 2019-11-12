@@ -21,7 +21,7 @@ module Dropkiq
     def to_param
       {
         "#{table_name}" => {
-          columns: drop_method_params
+          "columns" => drop_method_params
         }
       }
     end
