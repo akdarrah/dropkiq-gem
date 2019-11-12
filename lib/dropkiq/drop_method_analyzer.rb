@@ -1,7 +1,7 @@
 module Dropkiq
   class DropMethodAnalyzer
     attr_accessor :drop_class_analyzer, :drop_method,
-      :dropkiq_type
+      :dropkiq_type, :foreign_table_name
 
     delegate :active_record_class, to: :drop_class_analyzer
 
@@ -30,6 +30,7 @@ module Dropkiq
 
     def relationship_to_dropkiq_type_classifier
       reflection = reflect_on_association_value
+      self.foreign_table_name = reflection.class_name.constantize.table_name
 
       case reflection
       when ActiveRecord::Reflection::BelongsToReflection

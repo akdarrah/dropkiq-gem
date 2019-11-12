@@ -101,6 +101,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :group)
     @analyzer.analyze
 
+    assert_equal "groups", @analyzer.foreign_table_name
     assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
   end
 
@@ -111,6 +112,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :owner)
     @analyzer.analyze
 
+    assert_equal "people", @analyzer.foreign_table_name
     assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
   end
 
@@ -121,6 +123,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :people)
     @analyzer.analyze
 
+    assert_equal "people", @analyzer.foreign_table_name
     assert_equal Dropkiq::HAS_MANY_TYPE, @analyzer.dropkiq_type
   end
 
@@ -131,6 +134,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :groups)
     @analyzer.analyze
 
+    assert_equal "groups", @analyzer.foreign_table_name
     assert_equal Dropkiq::HAS_MANY_TYPE, @analyzer.dropkiq_type
   end
 
@@ -138,6 +142,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :group_owner)
     @analyzer.analyze
 
+    assert_equal "people", @analyzer.foreign_table_name
     assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
   end
 
@@ -145,6 +150,7 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :tags)
     @analyzer.analyze
 
+    assert_equal "tags", @analyzer.foreign_table_name
     assert_equal Dropkiq::HAS_MANY_TYPE, @analyzer.dropkiq_type
   end
 end
