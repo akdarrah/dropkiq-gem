@@ -12,6 +12,8 @@ namespace :dropkiq do
       analyzer.to_param
     end
 
-    puts schema
+    open("#{Rails.root}/db/dropkiq_schema.yaml", 'w') { |f|
+      f.puts schema.to_yaml
+    }
   end
 end
