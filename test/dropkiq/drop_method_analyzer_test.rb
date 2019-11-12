@@ -1,11 +1,14 @@
 require "test_helper"
 
 class DropkiqDropAnalyzerTest < Minitest::Test
+  include TestDatabase
+  include TestRecords
+
   def setup
     setup_test_scaffolding
 
-    @analyzer = Dropkiq::DropClassAnalyzer.new(PersonDrop)
-    @analyzer.analyze
+    @class_analyzer = Dropkiq::DropClassAnalyzer.new(PersonDrop)
+    @class_analyzer.analyze
   end
 
   def teardown
@@ -15,34 +18,30 @@ class DropkiqDropAnalyzerTest < Minitest::Test
   # Column tests
 
   def test_correctly_identifies_string_column
-    @column = @analyzer.drop_methods.detect{|data| data[:name] == :name}
-    assert_equal :string, @column[:type]
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :name)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::STRING_TYPE, @analyzer.dropkiq_type
   end
 
   def test_correctly_identifies_integer_column
-    @column = @analyzer.drop_methods.detect{|data| data[:name] == :age}
-    assert_equal :integer, @column[:type]
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :age)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::NUMERIC_TYPE, @analyzer.dropkiq_type
   end
 
   def test_correctly_identifies_boolean_column
-    @column = @analyzer.drop_methods.detect{|data| data[:name] == :active}
-    assert_equal :boolean, @column[:type]
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :active)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::BOOLEAN_TYPE, @analyzer.dropkiq_type
   end
 
   def test_correctly_identifies_datetime_column
-    @column = @analyzer.drop_methods.detect{|data| data[:name] == :created_at}
-    assert_equal :datetime, @column[:type]
-  end
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :created_at)
+    @analyzer.analyze
 
-  def test_columns_not_implemented_in_drop_class_are_hidden
-    @column = @analyzer.drop_methods.detect{|data| data[:name] == :updated_at}
-    assert_nil @column
-  end
-
-  # No Column tests
-
-  def test_finds_type_for_method_without_a_column
-    @column = @analyzer.drop_methods.detect{|data| data[:name] == :random_number}
-    assert_equal :datetime, @column[:type]
+    assert_equal Dropkiq::DATE_TIME_TYPE, @analyzer.dropkiq_type
   end
 end
