@@ -5,6 +5,8 @@
 
 module Dropkiq
   class DropClassAnalyzer
+    DEFAULT_METHODS = (Liquid::Drop.instance_methods + Object.instance_methods)
+
     attr_accessor :liquid_drop_class, :table_name,
       :active_record_class, :drop_methods
 
@@ -30,9 +32,7 @@ module Dropkiq
     end
 
     def find_drop_methods
-      default_methods  = (Liquid::Drop.instance_methods + Object.instance_methods)
-      instance_methods = (liquid_drop_class.instance_methods - default_methods)
-      columns_hash     = active_record_class.columns_hash
+      instance_methods = (liquid_drop_class.instance_methods - DEFAULT_METHODS)
 
       instance_methods.map do |method|
         Dropkiq::DropMethodAnalyzer.new(self, method).analyze
