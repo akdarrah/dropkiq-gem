@@ -36,13 +36,91 @@ This Gem makes several assumptions about your Ruby on Rails application:
 
 This Gem provides a rake command to generate a schema file that can be used to manage Fixtures on Dropkiq. Create the `db/dropkiq_schema.yaml` file by running the following command:
 
+
 ```
 bundle exec rake dropkiq:schema
 ```
 
+
 You should now have a `db/dropkiq_schema.yaml` file. This file describes all tables associated to Drop classes in your application, along with all methods avaialble to the Drop class. It is important that you **DO** allow this file to be checked in to version control so that you can maintain your Dropkiq schema over time as you add/remove/modify your Drop classes.
 
 Notice that `type` has NOT been set on all methods. The Dropkiq Gem is only able to infer the method type for methods that correspond to a column or relationship on the ActiveRecord model. Please take a moment to manually add `type` values for all methods that were not able to be inferred. Notice that if you run `bundle exec rake dropkiq:schema` again, your changes are saved!
+
+
+#### Ruby on Rails Column to Dropkiq Data Type Mappings
+
+| Ruby on Rails Column Type | Dropkiq Data Type |
+| --- | --- |
+| `string` | `ColumnTypes::String` |
+| `integer` | `ColumnTypes::Numeric` |
+| `boolean` | `ColumnTypes::Boolean` |
+| `datetime` | `ColumnTypes::DateTime` |
+| `date` | `ColumnTypes::DateTime` |
+| `decimal` | `ColumnTypes::Numeric` |
+| `float` | `ColumnTypes::Numeric` |
+| `text` | `ColumnTypes::Text` |
+| `time` | `ColumnTypes::DateTime` |
+| `binary` | `ColumnTypes::Numeric` |
+
+#### Ruby on Rails Associations to Dropkiq Data Type Mappings
+
+| Ruby on Rails Association Type | Dropkiq Data Type |
+| --- | --- |
+| `belongs_to` | `ColumnTypes::HasOne` |
+| `has_one` | `ColumnTypes::HasOne` |
+| `has_many` | `ColumnTypes::HasMany` |
+| `has_one through:` | `ColumnTypes::HasOne` |
+| `has_many through:` | `ColumnTypes::HasMany` |
+| `has_and_belongs_to_many` | `ColumnTypes::HasMany` |
+
+**Please note:** You must also specify a `foreign_table_name` for any Association column in Dropkiq. These types can also be used for arbitrary methods within your Drop class that simply returns a single instance or array of instances of a Drop Class.
+
+```ruby
+class PersonDrop < Liquid::Drop
+  # ...
+end
+
+class GroupDrop < Liquid::Drop
+  def initialize(group)
+    @group = group
+  end
+
+  # Use the ColumnTypes::HasOne column type and specify the foreign_table_name as "people"
+  def owner
+    owner_membership  = @group.memberships.find_by!(owner: true)
+    PersonDrop.new(owner_membership.person)
+  end
+
+  # Use the ColumnTypes::HasMany column type and specify the foreign_table_name as "people"
+  def managers
+    @group.memberships.where(manager: true).map{|m| PersonDrop.new(m.person)}
+  end
+end
+```
+
+
+Dropkiq also provides a `ColumnTypes::YAML` Column Type if your Drop class model has any methods that simply return an Array or Hash, such as this example:
+
+```ruby
+class ProductDrop < Liquid::Drop
+  def initialize(product)
+    @product = product
+  end
+
+  # Use the ColumnTypes::YAML column type and serialize the Array as Yaml
+  def possible_sku_numbers
+    [12345, 67890, 45678, 12390]
+  end
+
+  # Use the ColumnTypes::YAML column type and serialize the Hash as Yaml
+  def custom_data
+    {
+      description: "This is a book about bananas",
+      price: 12.95
+    }
+  end
+end
+```
 
 ## Development
 
