@@ -41,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "sqlite3", "~> 1.3.13"
+  spec.add_development_dependency "mocha", "~> 1.11.2"
 
   spec.add_dependency "activerecord", ">= 4.2"
   spec.add_dependency "liquid", "~> 4.0"

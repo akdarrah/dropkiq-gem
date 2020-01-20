@@ -7,6 +7,8 @@ require "test_drops"
 require "test_records"
 
 require "minitest/autorun"
+require 'minitest/unit'
+require 'mocha/minitest'
 
 def setup_test_scaffolding
   setup_db
