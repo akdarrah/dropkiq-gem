@@ -1,6 +1,5 @@
 module Dropkiq
   DEFAULT_DROP_PATH = "/app/drops"
-  DEFAULT_MODEL_PATH = "/app/models"
 
   DEFAULT_LIQUID_DROP_CLASSES = [
     Liquid::ForloopDrop,
