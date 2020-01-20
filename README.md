@@ -30,7 +30,7 @@ Or install it yourself as:
 
 This Gem makes several assumptions about your Ruby on Rails application:
 
-* Drop classes are expected to have the same name as the corresponding Rails model. For example, if you have an ActiveRecord model with name of `Person`, the drop class is expected to be called `PersonDrop`
+* Drop classes are expected to have the same name as the corresponding Rails model. For example, if you have an ActiveRecord model with name of `Person`, the drop class is expected to be called `PersonDrop` (Ruby on Rails applications using the legacy `liquid_methods` method with [PR #568](https://github.com/Shopify/liquid/pull/568) are also supported.)
 * Drop class methods are expected to return the same data type as the corresponding Rails-model getter methods for relationships and columns.
 * This Gem has not been tested with Rails models that have non-default primary key (other than `id`).
 
