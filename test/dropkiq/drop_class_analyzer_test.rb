@@ -33,10 +33,9 @@ class DropkiqDropClassAnalyzerTest < Minitest::Test
 
   def test_when_find_active_record_class_returns_nil
     Dropkiq::DropClassAnalyzer.any_instance.stubs(:find_active_record_class)
+    @analyzer.analyze
 
-    assert_raises RuntimeError do
-      @analyzer.analyze
-    end
+    assert_equal @analyzer.to_param, {}
   end
 
   # https://github.com/Shopify/liquid/pull/568

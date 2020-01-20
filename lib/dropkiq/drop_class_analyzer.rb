@@ -12,7 +12,8 @@ module Dropkiq
       self.active_record_class ||= find_active_record_class_from_shim
 
       if active_record_class.blank?
-        raise "No ActiveRecord Class found for #{liquid_drop_class.name}"
+        puts "WARNING: No ActiveRecord Class found for #{liquid_drop_class.name}"
+        return
       end
 
       self.table_name = active_record_class.table_name
@@ -20,6 +21,8 @@ module Dropkiq
     end
 
     def to_param
+      return {} if active_record_class.blank?
+
       {
         "#{table_name}" => {
           "methods" => drop_method_params
