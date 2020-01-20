@@ -11,8 +11,10 @@ namespace :dropkiq do
     stdout, stderr = StringIO.new, StringIO.new
     $stdout, $stderr = stdout, stderr
     Dir.glob("#{Rails.root}#{Dropkiq::DEFAULT_MODEL_PATH}/**/*.rb").each do |f|
-      load f
-    rescue
+      begin
+        load f
+      rescue
+      end
     end
     $stdout, $stderr = STDOUT, STDERR
 
