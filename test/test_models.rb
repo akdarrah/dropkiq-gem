@@ -4,6 +4,9 @@ class Person < ActiveRecord::Base
 
   liquid_methods :name
 
+  # Case when an association is defined by mistake
+  belongs_to :unknown
+
   belongs_to :group
   has_one :group_owner,
     through: :group,

@@ -12,7 +12,7 @@ module Dropkiq
       self.active_record_class ||= find_active_record_class_from_shim
 
       if active_record_class.blank?
-        puts "WARNING: No ActiveRecord Class found for #{liquid_drop_class.name}"
+        puts "WARNING: No ActiveRecord Class found for #{liquid_drop_class.name} (skipping)"
         return
       end
 

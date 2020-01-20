@@ -19,6 +19,8 @@ module Dropkiq
     end
 
     def to_param
+      return {} if dropkiq_type.blank?
+
       {
         "#{drop_method}" => {
           "type"               => dropkiq_type,
@@ -43,8 +45,8 @@ module Dropkiq
       begin
         self.foreign_table_name = reflection.class_name.constantize.table_name
       rescue
-        puts "Table not found for reflect_on_association value: #{reflection.inspect}"
-        raise
+        puts "WARNING: Could not find #{drop_method} on #{active_record_class.name} (skipping)"
+        return
       end
 
       case reflection
