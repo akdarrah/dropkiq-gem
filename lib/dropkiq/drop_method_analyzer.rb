@@ -39,7 +39,13 @@ module Dropkiq
 
     def relationship_to_dropkiq_type_classifier
       reflection = reflect_on_association_value
-      self.foreign_table_name = reflection.class_name.constantize.table_name
+
+      begin
+        self.foreign_table_name = reflection.class_name.constantize.table_name
+      rescue
+        puts "Table not found for reflect_on_association value: #{reflection.inspect}"
+        raise
+      end
 
       case reflection
       when ActiveRecord::Reflection::BelongsToReflection
