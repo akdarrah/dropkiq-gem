@@ -1,15 +1,20 @@
+require 'stringio'
+
 namespace :dropkiq do
   desc "Generate the fixture schema based on Liquid::Drop classes"
   task :schema do
     require "#{Rails.root}/config/environment.rb"
 
     Dir.glob("#{Rails.root}#{Dropkiq::DEFAULT_DROP_PATH}/**/*.rb").each { |f| load f }
-    Dir.glob("#{Rails.root}#{Dropkiq::DEFAULT_MODEL_PATH}/**/*.rb").each { |f|
-      begin
-        load f
-      rescue
-      end
-    }
+
+    # http://alphahydrae.com/2013/09/capturing-output-in-pure-ruby/
+    stdout, stderr = StringIO.new, StringIO.new
+    $stdout, $stderr = stdout, stderr
+    Dir.glob("#{Rails.root}#{Dropkiq::DEFAULT_MODEL_PATH}/**/*.rb").each do |f|
+      load f
+    rescue
+    end
+    $stdout, $stderr = STDOUT, STDERR
 
     existing_schema_yaml = begin
       File.read("#{Rails.root}/db/dropkiq_schema.yaml")
