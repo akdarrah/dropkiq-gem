@@ -165,6 +165,14 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
     assert_equal expected, @analyzer.to_param['tags']
   end
 
+  def test_correctly_identifies_has_and_belongs_to_many_relationship
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :to_s)
+    @analyzer.analyze
+
+    expected = {"type" => Dropkiq::STRING_TYPE, "foreign_table_name" => nil}
+    assert_equal expected, @analyzer.to_param['to_s']
+  end
+
   def test_gracefully_handles_a_mistake_association
     @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :unknown)
     @analyzer.analyze

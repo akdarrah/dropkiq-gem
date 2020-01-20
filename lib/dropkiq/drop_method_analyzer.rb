@@ -17,6 +17,8 @@ module Dropkiq
         relationship_to_dropkiq_type_classifier
       elsif is_column?
         column_to_dropkiq_type_classifier
+      else
+        Dropkiq::DropMethodNameClassifier.new(drop_method).classify
       end
     end
 

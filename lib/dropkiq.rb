@@ -7,6 +7,7 @@ require "dropkiq/constants"
 
 require "dropkiq/drop_class_analyzer"
 require "dropkiq/drop_method_analyzer"
+require "dropkiq/drop_method_name_classifier"
 require 'dropkiq/railtie' if defined?(Rails)
 
 module Dropkiq

@@ -35,6 +35,10 @@ class PersonDrop < Liquid::Drop
     @person = person
   end
 
+  def to_s
+    name
+  end
+
   def name
     @person["name"]
   end
