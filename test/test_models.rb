@@ -1,5 +1,8 @@
 class Person < ActiveRecord::Base
+  include LiquidMethods
   has_and_belongs_to_many :tags
+
+  liquid_methods :name
 
   belongs_to :group
   has_one :group_owner,

@@ -9,6 +9,7 @@ module Dropkiq
 
     def analyze
       self.active_record_class = find_active_record_class
+      self.active_record_class ||= find_active_record_class_from_shim
 
       if active_record_class.blank?
         raise "No ActiveRecord Class found for #{liquid_drop_class.name}"
@@ -34,6 +35,13 @@ module Dropkiq
       non_drop   = class_name.gsub('Drop', '')
 
       namespaces.push(non_drop).join("::").constantize
+    rescue NameError
+    end
+
+    # https://github.com/Shopify/liquid/pull/568
+    def find_active_record_class_from_shim
+      namespaces = liquid_drop_class.name.split("::")
+      namespaces[0..-2].join("::").constantize
     rescue NameError
     end
 

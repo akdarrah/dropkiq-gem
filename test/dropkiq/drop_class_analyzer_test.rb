@@ -38,4 +38,13 @@ class DropkiqDropClassAnalyzerTest < Minitest::Test
       @analyzer.analyze
     end
   end
+
+  # https://github.com/Shopify/liquid/pull/568
+  def test_using_liquid_drop_class_shim
+    @analyzer = Dropkiq::DropClassAnalyzer.new(Person::LiquidDropClass)
+    @analyzer.analyze
+
+    assert_equal Person, @analyzer.active_record_class
+    assert_equal Person.table_name, @analyzer.table_name
+  end
 end

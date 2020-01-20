@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "dropkiq"
 
 require "test_database"
+require "test_concerns"
 require "test_models"
 require "test_drops"
 require "test_records"
