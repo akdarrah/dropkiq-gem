@@ -19,3 +19,15 @@ class Group < ActiveRecord::Base
   has_many :people
   has_one :owner, class_name: "Person"
 end
+
+module Example
+  class Group < ActiveRecord::Base
+    self.table_name = "groups"
+
+    include LiquidMethods
+    liquid_methods :name
+
+    has_many :people
+    has_one :owner, class_name: "Person"
+  end
+end

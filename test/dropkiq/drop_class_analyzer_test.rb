@@ -47,4 +47,12 @@ class DropkiqDropClassAnalyzerTest < Minitest::Test
     assert_equal Person, @analyzer.active_record_class
     assert_equal Person.table_name, @analyzer.table_name
   end
+
+  def test_using_liquid_drop_class_shim_with_namespace
+    @analyzer = Dropkiq::DropClassAnalyzer.new(Example::Group::LiquidDropClass)
+    @analyzer.analyze
+
+    assert_equal Example::Group, @analyzer.active_record_class
+    assert_equal Example::Group.table_name, @analyzer.table_name
+  end
 end
