@@ -44,7 +44,7 @@ bundle exec rake dropkiq:schema
 
 You should now have a `db/dropkiq_schema.yaml` file. This file describes all tables associated to Drop classes in your application, along with all methods avaialble to the Drop class. It is important that you **DO** allow this file to be checked in to version control so that you can maintain your Dropkiq schema over time as you add/remove/modify your Drop classes.
 
-Notice that `type` has NOT been set on all methods. The Dropkiq Gem is only able to infer the method type for methods that correspond to a column or relationship on the ActiveRecord model. Please take a moment to manually add `type` values for all methods that were not able to be inferred. Notice that if you run `bundle exec rake dropkiq:schema` again, your changes are saved!
+Notice that `type` has NOT been set on all methods. The Dropkiq Gem is only able to infer the method type for methods that correspond to a column or relationship on the ActiveRecord model. Please take a moment to manually add `type` values for all methods that were not able to be inferred. (Hint: Search the dropkiq_schema.yaml file for the word "CHANGEME" to see what needs manual attention.) Notice that if you run `bundle exec rake dropkiq:schema` again, your changes are saved!
 
 
 #### Ruby on Rails Column to Dropkiq Data Type Mappings
