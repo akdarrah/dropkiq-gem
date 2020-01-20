@@ -2,7 +2,14 @@ namespace :dropkiq do
   desc "Generate the fixture schema based on Liquid::Drop classes"
   task :schema do
     require "#{Rails.root}/config/environment.rb"
+
     Dir.glob("#{Rails.root}#{Dropkiq::DEFAULT_DROP_PATH}/**/*.rb").each { |f| load f }
+    Dir.glob("#{Rails.root}#{Dropkiq::DEFAULT_MODEL_PATH}/**/*.rb").each { |f|
+      begin
+        load f
+      rescue
+      end
+    }
 
     existing_schema_yaml = begin
       File.read("#{Rails.root}/db/dropkiq_schema.yaml")
