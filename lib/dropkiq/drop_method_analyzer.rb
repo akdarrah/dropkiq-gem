@@ -1,5 +1,7 @@
 module Dropkiq
   class DropMethodAnalyzer
+    CHANGEME = "CHANGEME"
+
     attr_accessor :drop_class_analyzer, :drop_method,
       :dropkiq_type, :foreign_table_name
 
@@ -19,11 +21,9 @@ module Dropkiq
     end
 
     def to_param
-      return {} if dropkiq_type.blank?
-
       {
         "#{drop_method}" => {
-          "type"               => dropkiq_type,
+          "type"               => (dropkiq_type.presence || CHANGEME),
           "foreign_table_name" => foreign_table_name
         }
       }
@@ -45,7 +45,7 @@ module Dropkiq
       begin
         self.foreign_table_name = reflection.class_name.constantize.table_name
       rescue
-        puts "WARNING: Could not find #{drop_method} on #{active_record_class.name} (skipping)"
+        puts "WARNING: Could not find #{drop_method} on #{active_record_class.name}"
         return
       end
 

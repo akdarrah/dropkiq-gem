@@ -171,6 +171,11 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
 
     assert_nil @analyzer.dropkiq_type
     assert_nil @analyzer.foreign_table_name
-    assert_equal @analyzer.to_param, {}
+    assert_equal @analyzer.to_param, {
+      "unknown"=>{
+        "type"=>"CHANGEME",
+        "foreign_table_name"=>nil
+      }
+    }
   end
 end
