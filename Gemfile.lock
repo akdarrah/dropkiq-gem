@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dropkiq (0.1.7)
+    dropkiq (0.1.8)
       activerecord (>= 4.2)
       liquid (~> 4.0)
 
