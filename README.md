@@ -122,6 +122,30 @@ class ProductDrop < Liquid::Drop
 end
 ```
 
+#### Dropkiq Method Name Classification
+
+In the event that a liquid method is not an exact match to a column or association, the Dropkiq Ruby Gem will attempt to make a best guess about the data type of the method based on the name. The rules for matching are as follows:
+
+| Method Name Ends With | Dropkiq Data Type |
+| --- | --- |
+| `_id` | `ColumnTypes::Numeric` |
+| `_count` | `ColumnTypes::Numeric` |
+| `?` | `ColumnTypes::Boolean` |
+| `_present` | `ColumnTypes::Boolean` |
+| `_changed` | `ColumnTypes::Boolean` |
+| `description` | `ColumnTypes::Text` |
+| `name` | `ColumnTypes::String` |
+| `password` | `ColumnTypes::String` |
+| `type` | `ColumnTypes::String` |
+| `title` | `ColumnTypes::String` |
+| `to_s` | `ColumnTypes::String` |
+| `to_string` | `ColumnTypes::String` |
+| `_url` | `ColumnTypes::String` |
+| `_email` | `ColumnTypes::String` |
+| `_partial` | `ColumnTypes::String` |
+| `_email_address` | `ColumnTypes::String` |
+| `_uuid` | `ColumnTypes::String` |
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
