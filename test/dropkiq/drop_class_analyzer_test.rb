@@ -30,4 +30,12 @@ class DropkiqDropClassAnalyzerTest < Minitest::Test
   def test_finds_correct_table_name
     assert_equal Person.table_name, @analyzer.table_name
   end
+
+  def test_when_find_active_record_class_returns_nil
+    Dropkiq::DropClassAnalyzer.any_instance.stubs(:find_active_record_class)
+
+    assert_raises RuntimeError do
+      @analyzer.analyze
+    end
+  end
 end

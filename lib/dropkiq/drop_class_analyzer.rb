@@ -9,6 +9,11 @@ module Dropkiq
 
     def analyze
       self.active_record_class = find_active_record_class
+
+      if active_record_class.blank?
+        raise "No ActiveRecord Class found for #{liquid_drop_class.name}"
+      end
+
       self.table_name = active_record_class.table_name
       self.drop_method_params = find_drop_method_params
     end
