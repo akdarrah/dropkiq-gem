@@ -186,4 +186,36 @@ class DropkiqDropMethodAnalyzerTest < Minitest::Test
       }
     }
   end
+
+  # Simulation
+
+  def test_finds_primitive_type_from_simulation
+    @sample_drop = PersonDrop.new(Person.first)
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :symbol, @sample_drop)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::STRING_TYPE, @analyzer.dropkiq_type
+    assert_nil @analyzer.foreign_table_name
+    assert_equal @analyzer.to_param, {
+      "symbol"=>{
+        "type"=>Dropkiq::STRING_TYPE,
+        "foreign_table_name"=>nil
+      }
+    }
+  end
+
+  def test_finds_association_type_from_simulation
+    @sample_drop = PersonDrop.new(Person.first)
+    @analyzer = Dropkiq::DropMethodAnalyzer.new(@class_analyzer, :first_tag, @sample_drop)
+    @analyzer.analyze
+
+    assert_equal Dropkiq::HAS_ONE_TYPE, @analyzer.dropkiq_type
+    assert_equal "tags", @analyzer.foreign_table_name
+    assert_equal @analyzer.to_param, {
+      "first_tag"=>{
+        "type"=>Dropkiq::HAS_ONE_TYPE,
+        "foreign_table_name"=>"tags"
+      }
+    }
+  end
 end
