@@ -122,7 +122,7 @@ class ProductDrop < Liquid::Drop
 end
 ```
 
-#### Dropkiq Method Name Classification
+#### Dropkiq Method Classification
 
 In the event that a liquid method is not an exact match to a column or association, the Dropkiq Ruby Gem will attempt to make a best guess about the data type of the method based on the name. The rules for matching are as follows:
 
@@ -145,6 +145,21 @@ In the event that a liquid method is not an exact match to a column or associati
 | `_partial` | `ColumnTypes::String` |
 | `_email_address` | `ColumnTypes::String` |
 | `_uuid` | `ColumnTypes::String` |
+
+The Dropkiq Ruby Gem will also attempt to classify liquid methods by creating a sample instance of the Liquid Drop class to test. The liquid method will be called, and the value will attempt to be classified using the foollowing:
+
+| Value Result | Dropkiq Data Type |
+| --- | --- |
+| `TrueClass` | `ColumnTypes::Boolean` |
+| `FalseClass` | `ColumnTypes::Boolean` |
+| `String` | `ColumnTypes::String` |
+| `Symbol` | `ColumnTypes::String` |
+| `Numeric` | `ColumnTypes::Numeric` |
+| `Date` | `ColumnTypes::DateTime` |
+| `Time` | `ColumnTypes::DateTime` |
+| `DateTime` | `ColumnTypes::DateTime` |
+
+Dropkiq will attempt to classify relationships in the event the method returns a single ActiveRecord object (`ColumnTypes::HasOne`), or a collection or ActiveRecord objects (`ColumnTypes::HasMany`).
 
 ## Development
 
