@@ -19,8 +19,13 @@ module Dropkiq
       elsif is_column?
         column_to_dropkiq_type_classifier
       else
-        Dropkiq::DropMethodNameClassifier.new(drop_method).classify ||
-          Dropkiq::DropMethodInstanceSimulator.new(drop_method, sample_drop).classify
+        Dropkiq::DropMethodNameClassifier.new(drop_method).classify
+      end
+
+      if dropkiq_type.blank?
+        result = Dropkiq::DropMethodInstanceSimulator.new(drop_method, sample_drop).classify
+        self.dropkiq_type = result.dropkiq_type
+        self.foreign_table_name = result.foreign_table_name
       end
     end
 

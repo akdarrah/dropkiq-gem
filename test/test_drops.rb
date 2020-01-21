@@ -104,4 +104,12 @@ class PersonDrop < Liquid::Drop
   def unknown
     PersonDrop::Unknown.new
   end
+
+  def first_tag
+    Tag.first
+  end
+
+  def all_tags
+    Tag.all
+  end
 end

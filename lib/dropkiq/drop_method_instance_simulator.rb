@@ -1,6 +1,7 @@
 module Dropkiq
   class DropMethodInstanceSimulator
     attr_accessor :drop_method, :sample_drop
+    attr_accessor :dropkiq_type, :foreign_table_name
 
     def initialize(drop_method, sample_drop=nil)
       self.drop_method = drop_method.to_s
@@ -13,10 +14,23 @@ module Dropkiq
       rescue
       end
 
-      ruby_data_type_to_dropkiq_type(value)
+      self.dropkiq_type = ruby_data_type_to_dropkiq_type(value)
+      self.dropkiq_type ||= test_for_relationship(value)
+
+      self
     end
 
     private
+
+    def test_for_relationship(value)
+      if value.is_a?(ActiveRecord::Base)
+        self.foreign_table_name = value.class.table_name
+        return Dropkiq::HAS_ONE_TYPE
+      elsif value.respond_to?(:first) && value.first.is_a?(ActiveRecord::Base)
+        self.foreign_table_name = value.first.class.table_name
+        return Dropkiq::HAS_MANY_TYPE
+      end
+    end
 
     def ruby_data_type_to_dropkiq_type(value)
       case value
