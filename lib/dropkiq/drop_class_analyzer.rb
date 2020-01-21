@@ -52,8 +52,14 @@ module Dropkiq
       default_methods  = (Liquid::Drop.instance_methods + Object.instance_methods)
       instance_methods = (liquid_drop_class.instance_methods - default_methods)
 
+      sample_instance = active_record_class.first
+      sample_drop = begin
+        liquid_drop_class.new(sample_instance)
+      rescue
+      end
+
       instance_methods.inject({}) do |hash, method|
-        analyzer = Dropkiq::DropMethodAnalyzer.new(self, method)
+        analyzer = Dropkiq::DropMethodAnalyzer.new(self, method, sample_drop)
         analyzer.analyze
         hash.merge!(analyzer.to_param)
       end.sort_by { |key| key }.to_h

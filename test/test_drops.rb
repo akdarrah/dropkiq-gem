@@ -31,6 +31,9 @@ class TagDrop < Liquid::Drop
 end
 
 class PersonDrop < Liquid::Drop
+  class Unknown
+  end
+
   def initialize(person)
     @person = person
   end
@@ -57,5 +60,48 @@ class PersonDrop < Liquid::Drop
 
   def random_number
     rand(1..10)
+  end
+
+  def nil
+  end
+
+  def true
+    true
+  end
+
+  def false
+    true
+  end
+
+  def string
+    ""
+  end
+
+  def symbol
+    :symbol
+  end
+
+  def integer
+    123
+  end
+
+  def float
+    1.001
+  end
+
+  def datetime
+    DateTime.now
+  end
+
+  def date
+    Date.today
+  end
+
+  def time
+    Time.now
+  end
+
+  def unknown
+    PersonDrop::Unknown.new
   end
 end

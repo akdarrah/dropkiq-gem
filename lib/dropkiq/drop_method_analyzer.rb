@@ -3,13 +3,14 @@ module Dropkiq
     CHANGEME = "CHANGEME"
 
     attr_accessor :drop_class_analyzer, :drop_method,
-      :dropkiq_type, :foreign_table_name
+      :dropkiq_type, :foreign_table_name, :sample_drop
 
     delegate :active_record_class, to: :drop_class_analyzer
 
-    def initialize(drop_class_analyzer, drop_method)
+    def initialize(drop_class_analyzer, drop_method, sample_drop=nil)
       self.drop_class_analyzer = drop_class_analyzer
       self.drop_method = drop_method
+      self.sample_drop = sample_drop
     end
 
     def analyze
@@ -18,7 +19,8 @@ module Dropkiq
       elsif is_column?
         column_to_dropkiq_type_classifier
       else
-        Dropkiq::DropMethodNameClassifier.new(drop_method).classify
+        Dropkiq::DropMethodNameClassifier.new(drop_method).classify ||
+          Dropkiq::DropMethodInstanceSimulator.new(drop_method, sample_drop).classify
       end
     end
 
