@@ -1,4 +1,3 @@
-require "pry"
 require "liquid"
 require 'active_record'
 
