@@ -1,19 +1,10 @@
-class GroupDrop < Liquid::Drop
-  def initialize(group)
-    @group = group
-  end
+require 'liquid-rails/drops/drop'
 
-  def name
-    @group["name"]
-  end
+class GroupDrop < Liquid::Rails::Drop
+  attributes :id, :name
 
-  def owner
-    PersonDrop.new(@group.owner)
-  end
-
-  def people
-    @group.people.map{|p| PersonDrop.new(p)}
-  end
+  belongs_to :owner
+  has_many :people
 end
 
 class TagDrop < Liquid::Drop

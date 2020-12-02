@@ -54,4 +54,12 @@ class DropkiqDropClassAnalyzerTest < Minitest::Test
     assert_equal Example::Group, @analyzer.active_record_class
     assert_equal Example::Group.table_name, @analyzer.table_name
   end
+
+  def test_using_liquid_rails_drop_class
+    @analyzer = Dropkiq::DropClassAnalyzer.new(GroupDrop)
+    @analyzer.analyze
+
+    assert_equal Group, @analyzer.active_record_class
+    assert_equal Group.table_name, @analyzer.table_name
+  end
 end
